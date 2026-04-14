@@ -27,7 +27,7 @@ export default function Navbar({ categoriaActiva, onCategoria, favoritosCount, s
         {/* Barra principal */}
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <a href="#" className={`font-serif text-xl tracking-widest select-none transition-colors duration-300 ${scrolled || !sobreHero ? 'text-stone-800' : 'text-white'}`}>
+          <a href="#" className={`font-serif text-3xl tracking-widest select-none transition-colors duration-300 ${scrolled || !sobreHero ? 'text-stone-800' : 'text-white'}`}>
             BOUTIQUE
           </a>
 
