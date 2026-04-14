@@ -20,16 +20,15 @@ export default function Navbar({ categoriaActiva, onCategoria, favoritosCount, s
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled || !sobreHero ? 'bg-[#FAF8F5]/95 backdrop-blur-sm shadow-sm' : 'bg-transparent'
-      }`}
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled || !sobreHero ? 'bg-[#FAF8F5]/95 backdrop-blur-sm shadow-sm' : 'bg-transparent'
+        }`}
     >
       <div className="max-w-7xl mx-auto px-6 md:px-10">
         {/* Barra principal */}
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <a href="#" className={`font-serif text-xl tracking-widest select-none transition-colors duration-300 ${scrolled || !sobreHero ? 'text-stone-800' : 'text-white'}`}>
-            LUNA
+            BOUTIQUE
           </a>
 
           {/* Categorías desktop */}
@@ -38,15 +37,14 @@ export default function Navbar({ categoriaActiva, onCategoria, favoritosCount, s
               <button
                 key={cat}
                 onClick={() => onCategoria(cat)}
-                className={`text-xs tracking-widest uppercase transition-all duration-200 pb-0.5 ${
-                  scrolled || !sobreHero
+                className={`text-xs tracking-widest uppercase transition-all duration-200 pb-0.5 ${scrolled || !sobreHero
                     ? categoriaActiva === cat
                       ? 'text-stone-800 border-b border-stone-800'
                       : 'text-stone-400 hover:text-stone-700'
                     : categoriaActiva === cat
                       ? 'text-white border-b border-white'
                       : 'text-white/60 hover:text-white'
-                }`}
+                  }`}
               >
                 {cat}
               </button>
@@ -91,9 +89,8 @@ export default function Navbar({ categoriaActiva, onCategoria, favoritosCount, s
               <button
                 key={cat}
                 onClick={() => { onCategoria(cat); setMenuAbierto(false); }}
-                className={`text-left text-xs tracking-widest uppercase py-1 transition-colors ${
-                  categoriaActiva === cat ? 'text-stone-800 font-medium' : 'text-stone-400'
-                }`}
+                className={`text-left text-xs tracking-widest uppercase py-1 transition-colors ${categoriaActiva === cat ? 'text-stone-800 font-medium' : 'text-stone-400'
+                  }`}
               >
                 {cat}
               </button>
