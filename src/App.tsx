@@ -12,7 +12,6 @@ import Admin from './pages/Admin';
 
 function Tienda() {
   const [categoriaActiva, setCategoriaActiva] = useState('Todo');
-  const [favoritos, setFavoritos] = useState<Set<number>>(new Set());
   const [productoModal, setProductoModal] = useState<Producto | null>(null);
   const [productos, setProductos] = useState<Producto[]>(productosMock);
 
@@ -25,20 +24,11 @@ function Tienda() {
     ? productos
     : productos.filter(p => p.categoria === categoriaActiva);
 
-  const toggleFavorito = (id: number) => {
-    setFavoritos(prev => {
-      const next = new Set(prev);
-      next.has(id) ? next.delete(id) : next.add(id);
-      return next;
-    });
-  };
-
   return (
     <div className="min-h-screen bg-[#FAF8F5]">
       <Navbar
         categoriaActiva={categoriaActiva}
         onCategoria={setCategoriaActiva}
-        favoritosCount={favoritos.size}
         sobreHero={categoriaActiva === 'Todo'}
       />
 
@@ -46,9 +36,7 @@ function Tienda() {
 
       <ProductGrid
         productos={productosFiltrados}
-        favoritos={favoritos}
         onVerDetalle={setProductoModal}
-        onToggleFavorito={toggleFavorito}
       />
 
       <footer className="border-t border-stone-100 py-10 px-6 md:px-10">
@@ -66,8 +54,6 @@ function Tienda() {
       <ProductModal
         producto={productoModal}
         onCerrar={() => setProductoModal(null)}
-        esFavorito={productoModal ? favoritos.has(productoModal.id) : false}
-        onToggleFavorito={toggleFavorito}
       />
     </div>
   );

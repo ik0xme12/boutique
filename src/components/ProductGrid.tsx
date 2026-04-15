@@ -6,12 +6,10 @@ type Orden = 'destacados' | 'precio-asc' | 'precio-desc' | 'nuevo';
 
 interface ProductGridProps {
   productos: Producto[];
-  favoritos: Set<number>;
   onVerDetalle: (p: Producto) => void;
-  onToggleFavorito: (id: number) => void;
 }
 
-export default function ProductGrid({ productos, favoritos, onVerDetalle, onToggleFavorito }: ProductGridProps) {
+export default function ProductGrid({ productos, onVerDetalle }: ProductGridProps) {
   const [orden, setOrden] = useState<Orden>('destacados');
 
   const ordenados = [...productos].sort((a, b) => {
@@ -63,8 +61,6 @@ export default function ProductGrid({ productos, favoritos, onVerDetalle, onTogg
               key={producto.id}
               producto={producto}
               onVerDetalle={onVerDetalle}
-              esFavorito={favoritos.has(producto.id)}
-              onToggleFavorito={onToggleFavorito}
             />
           ))}
         </div>
