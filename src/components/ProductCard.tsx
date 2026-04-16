@@ -85,6 +85,20 @@ export default function ProductCard({ producto, onVerDetalle }: ProductCardProps
             <span className="text-[10px] text-stone-400">+{producto.colores.length - 4}</span>
           )}
         </div>
+
+        {/* Tallas */}
+        {(producto.tallas ?? []).length > 0 && (
+          <div className="flex flex-wrap gap-1 mt-2">
+            {(producto.tallas ?? []).slice(0, 5).map(t => (
+              <span key={t} className="text-[10px] text-stone-400 border border-stone-200 px-1.5 py-0.5">
+                {t}
+              </span>
+            ))}
+            {(producto.tallas ?? []).length > 5 && (
+              <span className="text-[10px] text-stone-400">+{(producto.tallas ?? []).length - 5}</span>
+            )}
+          </div>
+        )}
       </div>
     </div>
   );
