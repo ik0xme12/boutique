@@ -16,14 +16,14 @@ export default function ProductCard({ producto, onVerDetalle }: ProductCardProps
   return (
     <div
       className="group cursor-pointer"
-      onMouseEnter={() => { setHovered(true); if (producto.imagenes[1]) setImgIdx(1); }}
+      onMouseEnter={() => { setHovered(true); if ((producto.imagenes ?? [])[1]) setImgIdx(1); }}
       onMouseLeave={() => { setHovered(false); setImgIdx(0); }}
       onClick={() => onVerDetalle(producto)}
     >
       {/* Imagen */}
       <div className="relative overflow-hidden bg-stone-100 aspect-[3/4] mb-4">
         <img
-          src={producto.imagenes[imgIdx]}
+          src={(producto.imagenes ?? [])[imgIdx] ?? ''}
           alt={producto.nombre}
           className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
         />
@@ -73,7 +73,7 @@ export default function ProductCard({ producto, onVerDetalle }: ProductCardProps
 
         {/* Puntos de color */}
         <div className="flex gap-1.5 mt-2">
-          {producto.colores.slice(0, 4).map(c => (
+          {(producto.colores ?? []).slice(0, 4).map(c => (
             <div
               key={c.nombre}
               title={c.nombre}
@@ -81,7 +81,7 @@ export default function ProductCard({ producto, onVerDetalle }: ProductCardProps
               style={{ backgroundColor: c.hex }}
             />
           ))}
-          {producto.colores.length > 4 && (
+          {(producto.colores ?? []).length > 4 && (
             <span className="text-[10px] text-stone-400">+{producto.colores.length - 4}</span>
           )}
         </div>

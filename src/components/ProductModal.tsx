@@ -45,14 +45,14 @@ export default function ProductModal({ producto, onCerrar }: ProductModalProps) 
         {/* Imágenes */}
         <div className="md:w-1/2 flex flex-col">
           <div className="relative aspect-[3/4] bg-stone-100 overflow-hidden">
-            <img src={producto.imagenes[imgActiva]} alt={producto.nombre} className="w-full h-full object-cover transition-opacity duration-300" />
+            <img src={(producto.imagenes ?? [])[imgActiva] ?? ''} alt={producto.nombre} className="w-full h-full object-cover transition-opacity duration-300" />
             {producto.nuevo && (
               <span className="absolute top-4 left-4 bg-stone-800 text-white text-[10px] tracking-widest uppercase px-2 py-1">Nuevo</span>
             )}
           </div>
-          {producto.imagenes.length > 1 && (
+          {(producto.imagenes ?? []).length > 1 && (
             <div className="flex gap-2 p-4">
-              {producto.imagenes.map((img, i) => (
+              {(producto.imagenes ?? []).map((img, i) => (
                 <button key={i} onClick={() => setImgActiva(i)}
                   className={`w-16 h-20 overflow-hidden border-2 transition-all ${imgActiva === i ? 'border-stone-800' : 'border-transparent opacity-50 hover:opacity-75'}`}>
                   <img src={img} alt="" className="w-full h-full object-cover" />
@@ -77,13 +77,13 @@ export default function ProductModal({ producto, onCerrar }: ProductModalProps) 
           <p className="text-sm text-stone-500 leading-relaxed mb-8">{producto.descripcion}</p>
 
           {/* Colores */}
-          {producto.colores.length > 0 && (
+          {(producto.colores ?? []).length > 0 && (
             <div className="mb-6">
               <p className="text-xs tracking-widest uppercase text-stone-500 mb-3">
                 Color — <span className="text-stone-700 font-medium">{producto.colores[colorActivo]?.nombre}</span>
               </p>
               <div className="flex gap-2">
-                {producto.colores.map((c, i) => (
+                {(producto.colores ?? []).map((c, i) => (
                   <button key={c.nombre} title={c.nombre} onClick={() => setColorActivo(i)}
                     className={`w-7 h-7 rounded-full border-2 transition-all ${colorActivo === i ? 'border-stone-800 scale-110' : 'border-stone-200 hover:border-stone-400'}`}
                     style={{ backgroundColor: c.hex }}
@@ -94,11 +94,11 @@ export default function ProductModal({ producto, onCerrar }: ProductModalProps) 
           )}
 
           {/* Tallas */}
-          {producto.tallas.length > 0 && (
+          {(producto.tallas ?? []).length > 0 && (
             <div className="mb-8">
               <p className="text-xs tracking-widest uppercase text-stone-500 mb-3">Tallas disponibles</p>
               <div className="flex flex-wrap gap-2">
-                {producto.tallas.map(t => (
+                {(producto.tallas ?? []).map(t => (
                   <span key={t} className="min-w-[44px] px-3 py-2 text-xs border border-stone-200 text-stone-600 text-center">
                     {t}
                   </span>
