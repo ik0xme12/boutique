@@ -30,7 +30,7 @@ export default function ProductModal({ producto, onCerrar }: ProductModalProps) 
       <div className="absolute inset-0 bg-black/40 backdrop-blur-sm" />
 
       <div
-        className="relative bg-[#FAF8F5] w-full md:max-w-4xl max-h-[95vh] md:max-h-[85vh] overflow-y-auto flex flex-col md:flex-row"
+        className="relative bg-[#F8F4EF] w-full md:max-w-4xl max-h-[95vh] md:max-h-[85vh] overflow-y-auto flex flex-col md:flex-row"
         onClick={e => e.stopPropagation()}
       >
         <button
@@ -44,17 +44,17 @@ export default function ProductModal({ producto, onCerrar }: ProductModalProps) 
 
         {/* Imágenes */}
         <div className="md:w-1/2 flex flex-col">
-          <div className="relative aspect-[3/4] bg-stone-100 overflow-hidden">
+          <div className="relative aspect-[3/4] bg-[#E8D5C0] overflow-hidden">
             <img src={(producto.imagenes ?? [])[imgActiva] ?? ''} alt={producto.nombre} className="w-full h-full object-cover transition-opacity duration-300" />
             {producto.nuevo && (
-              <span className="absolute top-4 left-4 bg-stone-800 text-white text-[10px] tracking-widest uppercase px-2 py-1">Nuevo</span>
+              <span className="absolute top-4 left-4 bg-[#7D9B7E] text-white text-[10px] tracking-widest uppercase px-2 py-1">Nuevo</span>
             )}
           </div>
           {(producto.imagenes ?? []).length > 1 && (
             <div className="flex gap-2 p-4">
               {(producto.imagenes ?? []).map((img, i) => (
                 <button key={i} onClick={() => setImgActiva(i)}
-                  className={`w-16 h-20 overflow-hidden border-2 transition-all ${imgActiva === i ? 'border-stone-800' : 'border-transparent opacity-50 hover:opacity-75'}`}>
+                  className={`w-16 h-20 overflow-hidden border-2 transition-all ${imgActiva === i ? 'border-[#7D9B7E]' : 'border-transparent opacity-50 hover:opacity-75'}`}>
                   <img src={img} alt="" className="w-full h-full object-cover" />
                 </button>
               ))}
@@ -64,7 +64,7 @@ export default function ProductModal({ producto, onCerrar }: ProductModalProps) 
 
         {/* Info */}
         <div className="md:w-1/2 p-8 md:p-10 flex flex-col justify-center">
-          <p className="text-xs text-stone-400 tracking-widest uppercase mb-3">{producto.categoria}</p>
+          <p className="text-xs text-[#C4A49A] tracking-widest uppercase mb-3">{producto.categoria}</p>
           <h2 className="font-serif text-2xl md:text-3xl text-stone-800 font-normal mb-4">{producto.nombre}</h2>
 
           <div className="flex items-center gap-3 mb-6">
@@ -85,7 +85,7 @@ export default function ProductModal({ producto, onCerrar }: ProductModalProps) 
               <div className="flex gap-2">
                 {(producto.colores ?? []).map((c, i) => (
                   <button key={c.nombre} title={c.nombre} onClick={() => setColorActivo(i)}
-                    className={`w-7 h-7 rounded-full border-2 transition-all ${colorActivo === i ? 'border-stone-800 scale-110' : 'border-stone-200 hover:border-stone-400'}`}
+                    className={`w-7 h-7 rounded-full border-2 transition-all ${colorActivo === i ? 'border-[#7D9B7E] scale-110' : 'border-stone-200 hover:border-[#C4A49A]'}`}
                     style={{ backgroundColor: c.hex }}
                   />
                 ))}

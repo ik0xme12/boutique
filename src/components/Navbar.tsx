@@ -53,10 +53,10 @@ export default function Navbar({ categoriaActiva, onCategoria, sobreHero }: Navb
                 className={`text-xs tracking-widest uppercase transition-all duration-200 pb-0.5 ${
                   scrolled || !sobreHero
                     ? categoriaActiva === cat
-                      ? 'text-stone-800 border-b border-stone-800'
-                      : 'text-stone-400 hover:text-stone-700'
+                      ? 'text-[#7D9B7E] border-b border-[#C4A49A]'
+                      : 'text-stone-400 hover:text-[#2D2420]'
                     : categoriaActiva === cat
-                      ? 'text-white border-b border-white'
+                      ? 'text-white border-b border-white/70'
                       : 'text-white/60 hover:text-white'
                 }`}
               >
@@ -84,13 +84,13 @@ export default function Navbar({ categoriaActiva, onCategoria, sobreHero }: Navb
 
         {/* Menú móvil desplegable */}
         {menuAbierto && (
-          <div className="md:hidden border-t border-stone-100 py-4 flex flex-col gap-4 bg-[#FAF8F5]">
+          <div className="md:hidden border-t border-stone-100 py-4 flex flex-col gap-4 bg-[#F8F4EF]">
             {categorias.map(cat => (
               <button
                 key={cat}
                 onClick={() => { onCategoria(cat); setMenuAbierto(false); }}
                 className={`text-left text-xs tracking-widest uppercase py-1 transition-colors ${
-                  categoriaActiva === cat ? 'text-stone-800 font-medium' : 'text-stone-400'
+                  categoriaActiva === cat ? 'text-[#7D9B7E] font-medium' : 'text-stone-400'
                 }`}
               >
                 {cat}

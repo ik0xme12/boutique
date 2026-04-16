@@ -21,7 +21,7 @@ export default function ProductCard({ producto, onVerDetalle }: ProductCardProps
       onClick={() => onVerDetalle(producto)}
     >
       {/* Imagen */}
-      <div className="relative overflow-hidden bg-stone-100 aspect-[3/4] mb-4">
+      <div className="relative overflow-hidden bg-[#E8D5C0] aspect-[3/4] mb-4">
         <img
           src={(producto.imagenes ?? [])[imgIdx] ?? ''}
           alt={producto.nombre}
@@ -31,17 +31,17 @@ export default function ProductCard({ producto, onVerDetalle }: ProductCardProps
         {/* Badges */}
         <div className="absolute top-3 left-3 flex flex-col gap-1.5">
           {producto.nuevo && (
-            <span className="bg-stone-800 text-white text-[10px] tracking-widest uppercase px-2 py-1">
+            <span className="bg-[#7D9B7E] text-white text-[10px] tracking-widest uppercase px-2 py-1">
               Nuevo
             </span>
           )}
           {producto.precioAnterior && (
-            <span className="bg-stone-100 text-stone-700 text-[10px] tracking-widest uppercase px-2 py-1">
+            <span className="bg-[#C4A49A] text-white text-[10px] tracking-widest uppercase px-2 py-1">
               Sale
             </span>
           )}
           {producto.agotado && (
-            <span className="bg-stone-300 text-stone-600 text-[10px] tracking-widest uppercase px-2 py-1">
+            <span className="bg-[#E8D5C0] text-[#2D2420] text-[10px] tracking-widest uppercase px-2 py-1">
               Agotado
             </span>
           )}
@@ -60,7 +60,7 @@ export default function ProductCard({ producto, onVerDetalle }: ProductCardProps
 
       {/* Info */}
       <div>
-        <p className="text-xs text-stone-400 tracking-widest uppercase mb-1">{producto.categoria}</p>
+        <p className="text-xs text-[#C4A49A] tracking-widest uppercase mb-1">{producto.categoria}</p>
         <h3 className="text-stone-800 font-normal text-sm mb-2 group-hover:text-stone-600 transition-colors">
           {producto.nombre}
         </h3>
