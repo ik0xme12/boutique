@@ -12,7 +12,7 @@ export interface Producto {
   agotado?: boolean;
 }
 
-export const categorias = ['Todo', 'Tops', 'Pantalones', 'Vestidos', 'Accesorios', 'Outerwear'];
+export const categorias = ['Todo', 'Tops', 'Pantalones', 'Vestidos', 'Accesorios', 'Outerwear', 'Bolsos'];
 
 export const productos: Producto[] = [
   // ── TOPS ──────────────────────────────────────────────────────────────
@@ -474,5 +474,149 @@ export const productos: Producto[] = [
       'https://images.unsplash.com/photo-1572307480813-ceb0e59d8325?w=600&q=80',
     ],
     agotado: false,
+  },
+
+  // ── BOLSOS ────────────────────────────────────────────────────────────
+  {
+    id: 27,
+    nombre: 'Bolso Baguette Cuero',
+    precio: 2200,
+    categoria: 'Bolsos',
+    descripcion: 'Bolso baguette en cuero genuino con solapa y cierre de presión. Compacto y sofisticado, el favorito de la temporada.',
+    tallas: ['Única'],
+    colores: [
+      { nombre: 'Cognac', hex: '#A0522D' },
+      { nombre: 'Negro', hex: '#1C1917' },
+      { nombre: 'Borgoña', hex: '#800020' },
+    ],
+    imagenes: [
+      'https://images.unsplash.com/photo-1566150905458-1bf1fc113f0d?w=600&q=80',
+      'https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=600&q=80',
+    ],
+    nuevo: true,
+  },
+  {
+    id: 28,
+    nombre: 'Bolso Shopper Lona',
+    precio: 1100,
+    precioAnterior: 1400,
+    categoria: 'Bolsos',
+    descripcion: 'Bolso shopper grande en lona gruesa con asas de cuero. Práctico para el día a día sin sacrificar el estilo.',
+    tallas: ['Única'],
+    colores: [
+      { nombre: 'Natural', hex: '#D9C9B0' },
+      { nombre: 'Negro', hex: '#1C1917' },
+      { nombre: 'Verde Oliva', hex: '#6B7C4B' },
+    ],
+    imagenes: [
+      'https://images.unsplash.com/photo-1544816155-12df9643f363?w=600&q=80',
+      'https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=600&q=80',
+    ],
+  },
+  {
+    id: 29,
+    nombre: 'Clutch Sobre Satén',
+    precio: 890,
+    categoria: 'Bolsos',
+    descripcion: 'Clutch tipo sobre en satén con cierre de cremallera y correa desmontable. Ideal para looks de noche o eventos.',
+    tallas: ['Única'],
+    colores: [
+      { nombre: 'Champagne', hex: '#F7E7CE' },
+      { nombre: 'Negro', hex: '#1C1917' },
+      { nombre: 'Nude', hex: '#D4A88A' },
+    ],
+    imagenes: [
+      'https://images.unsplash.com/photo-1601924921557-45b6e945b423?w=600&q=80',
+      'https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=600&q=80',
+    ],
+    nuevo: true,
+  },
+  {
+    id: 30,
+    nombre: 'Bolso Bucket Cuero',
+    precio: 2950,
+    categoria: 'Bolsos',
+    descripcion: 'Bolso bucket en cuero genuino con cordón ajustable. Espacioso, elegante y durable.',
+    tallas: ['Única'],
+    colores: [
+      { nombre: 'Cognac', hex: '#A0522D' },
+      { nombre: 'Negro', hex: '#1C1917' },
+      { nombre: 'Camel', hex: '#C19A6B' },
+    ],
+    imagenes: [
+      'https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=600&q=80',
+      'https://images.unsplash.com/photo-1566150905458-1bf1fc113f0d?w=600&q=80',
+    ],
+  },
+  {
+    id: 31,
+    nombre: 'Cartera Bifold Cuero',
+    precio: 750,
+    categoria: 'Bolsos',
+    descripcion: 'Cartera bifold en cuero suave con múltiples ranuras para tarjetas y compartimento para billetes. Slim y funcional.',
+    tallas: ['Única'],
+    colores: [
+      { nombre: 'Negro', hex: '#1C1917' },
+      { nombre: 'Cognac', hex: '#A0522D' },
+      { nombre: 'Nude', hex: '#D4A88A' },
+    ],
+    imagenes: [
+      'https://images.unsplash.com/photo-1627123424574-724758594e93?w=600&q=80',
+      'https://images.unsplash.com/photo-1591337676887-a217a6970a8a?w=600&q=80',
+    ],
+    nuevo: true,
+  },
+  {
+    id: 32,
+    nombre: 'Cartera Acordeón',
+    precio: 920,
+    precioAnterior: 1150,
+    categoria: 'Bolsos',
+    descripcion: 'Cartera tipo acordeón con compartimentos organizadores, monedero y asa de muñeca. La organización hecha elegancia.',
+    tallas: ['Única'],
+    colores: [
+      { nombre: 'Borgoña', hex: '#800020' },
+      { nombre: 'Negro', hex: '#1C1917' },
+      { nombre: 'Camel', hex: '#C19A6B' },
+    ],
+    imagenes: [
+      'https://images.unsplash.com/photo-1591337676887-a217a6970a8a?w=600&q=80',
+      'https://images.unsplash.com/photo-1627123424574-724758594e93?w=600&q=80',
+    ],
+  },
+  {
+    id: 33,
+    nombre: 'Bolso Saddle Bag',
+    precio: 2400,
+    categoria: 'Bolsos',
+    descripcion: 'Bolso saddle en cuero con solapa curva y correa ajustable. Diseño icónico que nunca pasa de moda.',
+    tallas: ['Única'],
+    colores: [
+      { nombre: 'Cognac', hex: '#A0522D' },
+      { nombre: 'Chocolate', hex: '#3B1F0E' },
+      { nombre: 'Negro', hex: '#1C1917' },
+    ],
+    imagenes: [
+      'https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=600&q=80',
+      'https://images.unsplash.com/photo-1566150905458-1bf1fc113f0d?w=600&q=80',
+    ],
+    nuevo: true,
+  },
+  {
+    id: 34,
+    nombre: 'Portamonedas Cuero',
+    precio: 420,
+    categoria: 'Bolsos',
+    descripcion: 'Portamonedas redondo en cuero suave con cierre metálico a presión. Pequeño detalle de gran impacto.',
+    tallas: ['Única'],
+    colores: [
+      { nombre: 'Negro', hex: '#1C1917' },
+      { nombre: 'Nude', hex: '#D4A88A' },
+      { nombre: 'Cognac', hex: '#A0522D' },
+    ],
+    imagenes: [
+      'https://images.unsplash.com/photo-1601924921557-45b6e945b423?w=600&q=80',
+      'https://images.unsplash.com/photo-1627123424574-724758594e93?w=600&q=80',
+    ],
   },
 ];
