@@ -17,7 +17,18 @@ function Tienda() {
 
   useEffect(() => {
     supabase.from('productos').select('*').order('id', { ascending: false })
-      .then(({ data }) => { if (data && data.length > 0) setProductos(data as Producto[]); });
+      .then(({ data }) => {
+        if (data && data.length > 0) {
+          const sanitizados = data.map((p: any) => ({
+            ...p,
+            precioAnterior: p.precio_anterior ?? undefined,
+            imagenes: p.imagenes ?? [],
+            tallas: p.tallas ?? [],
+            colores: p.colores ?? [],
+          }));
+          setProductos(sanitizados as Producto[]);
+        }
+      });
   }, []);
 
   const productosFiltrados = categoriaActiva === 'Todo'

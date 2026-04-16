@@ -1,6 +1,6 @@
 export default function Hero() {
   return (
-    <section className="relative h-screen flex items-end overflow-hidden">
+    <section className="relative h-screen flex items-end overflow-hidden bg-stone-900">
       {/* Imagen de fondo */}
       <img
         src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=1400&q=80"
