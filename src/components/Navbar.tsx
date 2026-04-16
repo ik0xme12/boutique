@@ -35,8 +35,13 @@ export default function Navbar({ categoriaActiva, onCategoria, sobreHero }: Navb
       <div className="max-w-7xl mx-auto px-6 md:px-10">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <a href="#" className={`font-serif text-3xl tracking-widest select-none transition-colors duration-300 ${scrolled || !sobreHero ? 'text-stone-800' : 'text-white'}`}>
-            BOUTIQUE
+          <a href="#" className="select-none flex flex-col items-start leading-none">
+            <span className={`font-script text-4xl transition-colors duration-300 ${scrolled || !sobreHero ? 'text-[#2D2420]' : 'text-white'}`}>
+              Shulalá
+            </span>
+            <span className={`text-[0.55rem] tracking-[0.35em] uppercase transition-colors duration-300 -mt-1 ${scrolled || !sobreHero ? 'text-[#C4A49A]' : 'text-white/70'}`}>
+              Boutique
+            </span>
           </a>
 
           {/* Categorías desktop */}

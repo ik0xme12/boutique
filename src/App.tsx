@@ -36,7 +36,7 @@ function Tienda() {
     : productos.filter(p => p.categoria === categoriaActiva);
 
   return (
-    <div className="min-h-screen bg-[#FAF8F5]">
+    <div className="min-h-screen bg-[#F8F4EF]">
       <Navbar
         categoriaActiva={categoriaActiva}
         onCategoria={setCategoriaActiva}
@@ -52,8 +52,8 @@ function Tienda() {
 
       <footer className="border-t border-stone-100 py-10 px-6 md:px-10">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
-          <span className="font-serif text-lg tracking-widest text-stone-800">BOUTIQUE</span>
-          <p className="text-xs text-stone-400 tracking-wide">© 2025 Boutique. Todos los derechos reservados.</p>
+          <span className="font-script text-3xl text-[#2D2420]">Shulalá</span>
+          <p className="text-xs text-stone-400 tracking-wide">© 2025 Shulalá Boutique. Todos los derechos reservados.</p>
           <div className="flex gap-6">
             {['Instagram', 'Pinterest', 'TikTok'].map(red => (
               <a key={red} href="#" className="text-xs text-stone-400 hover:text-stone-700 tracking-widest uppercase transition-colors">{red}</a>

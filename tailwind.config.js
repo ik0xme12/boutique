@@ -6,9 +6,14 @@ export default {
       fontFamily: {
         sans: ['Inter', 'system-ui', 'sans-serif'],
         serif: ['"Playfair Display"', 'Georgia', 'serif'],
+        script: ['"Great Vibes"', 'cursive'],
       },
       colors: {
-        cream: '#FAF8F5',
+        cream: '#F8F4EF',
+        sage: '#7D9B7E',
+        'dusty-rose': '#C4A49A',
+        sand: '#E8D5C0',
+        gold: '#C4A35A',
       },
       aspectRatio: {
         '3/4': '3 / 4',

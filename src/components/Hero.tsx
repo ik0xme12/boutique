@@ -15,10 +15,12 @@ export default function Hero() {
         <p className="text-white/70 text-xs tracking-[0.3em] uppercase mb-4">
           Nueva colección — Primavera 2025
         </p>
-        <h1 className="font-serif text-white text-5xl md:text-7xl font-normal leading-tight mb-8">
-          Piezas que<br />
-          <em>definen</em> tu estilo
+        <h1 className="font-script text-white text-6xl md:text-8xl font-normal leading-tight mb-3">
+          Shulalá
         </h1>
+        <p className="text-white/80 text-sm tracking-[0.4em] uppercase mb-8">
+          Boutique
+        </p>
         <a
           href="#coleccion"
           className="inline-flex items-center gap-3 text-white text-xs tracking-widest uppercase border border-white/50 px-8 py-4 hover:bg-white hover:text-stone-900 transition-all duration-300"
