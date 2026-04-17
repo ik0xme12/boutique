@@ -4,11 +4,12 @@ import { supabase } from '../lib/supabase';
 import { useAuth } from '../context/AuthContext';
 import ProductoForm from '../components/admin/ProductoForm';
 import type { ProductoInput } from '../components/admin/ProductoForm';
+import GeneradorIA from '../components/admin/GeneradorIA';
 
 const mxn = (n: number) =>
   new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN', maximumFractionDigits: 0 }).format(n);
 
-type Tab = 'productos' | 'categorias';
+type Tab = 'productos' | 'categorias' | 'ia';
 
 export default function Admin() {
   const { session, loading: authLoading, signOut } = useAuth();
@@ -96,7 +97,7 @@ export default function Admin() {
             <a href="/" className="font-serif text-lg tracking-widest text-stone-800">BOUTIQUE</a>
             <span className="text-stone-200">|</span>
             <nav className="flex gap-1">
-              {(['productos', 'categorias'] as Tab[]).map(t => (
+              {(['productos', 'categorias', 'ia'] as Tab[]).map(t => (
                 <button key={t} onClick={() => setTab(t)}
                   className={`text-xs tracking-widest uppercase px-3 py-1.5 transition-colors ${tab === t ? 'text-stone-800 bg-stone-100' : 'text-stone-400 hover:text-stone-600'}`}>
                   {t}
@@ -191,6 +192,9 @@ export default function Admin() {
             )}
           </div>
         )}
+
+        {/* TAB IA */}
+        {tab === 'ia' && <GeneradorIA />}
 
         {/* TAB CATEGORÍAS */}
         {tab === 'categorias' && (
