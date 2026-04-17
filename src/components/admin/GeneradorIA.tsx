@@ -1,5 +1,4 @@
 import { useState, useRef } from 'react';
-import { supabase } from '../../lib/supabase';
 
 function fileToBase64(file: File): Promise<string> {
   return new Promise((res, rej) => {
@@ -78,19 +77,27 @@ export default function GeneradorIA() {
         fileToBase64(modelFile),
       ]);
 
-      setEstado('Generando imagen (puede tardar ~1 min)...');
-      const { data, error } = await supabase.functions.invoke('generar-imagen', {
-        body: {
+      setEstado('Enviando a la IA...');
+      const createRes = await fetch('/api/crear-prediccion', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
           garm_img: garmB64,
           human_img: modelB64,
           garment_des: descripcion || 'clothing item',
-        },
+        }),
       });
+      const createData = await createRes.json();
+      if (!createRes.ok) throw new Error(createData.error ?? 'Error al iniciar generación');
 
-      if (error) throw new Error(error.message);
-      if (data?.error) throw new Error(data.error);
-
-      setResultado(data.output as string);
+      setEstado('Generando imagen (puede tardar ~1 min)...');
+      for (let i = 0; i < 50; i++) {
+        await new Promise(r => setTimeout(r, 4000));
+        const pollRes = await fetch(`/api/estado-prediccion?id=${createData.id}`);
+        const pollData = await pollRes.json();
+        if (pollData.status === 'succeeded') { setResultado(pollData.output as string); break; }
+        if (pollData.status === 'failed') throw new Error(pollData.error ?? 'La generación falló');
+      }
     } catch (e: unknown) {
       setError(e instanceof Error ? e.message : 'Error desconocido');
     } finally {
