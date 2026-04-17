@@ -1,6 +1,5 @@
 import { useState, useRef } from 'react';
-
-const API_KEY = import.meta.env.VITE_REPLICATE_API_KEY as string;
+import { supabase } from '../../lib/supabase';
 
 function fileToBase64(file: File): Promise<string> {
   return new Promise((res, rej) => {
@@ -66,20 +65,6 @@ export default function GeneradorIA() {
     setPreview(b64);
   };
 
-  const poll = async (id: string): Promise<string> => {
-    for (let i = 0; i < 50; i++) {
-      await new Promise(r => setTimeout(r, 4000));
-      const res = await fetch(`https://api.replicate.com/v1/predictions/${id}`, {
-        headers: { Authorization: `Token ${API_KEY}` },
-      });
-      const data = await res.json();
-      if (data.status === 'succeeded') return data.output as string;
-      if (data.status === 'failed' || data.status === 'canceled')
-        throw new Error(data.error ?? 'La generación falló');
-    }
-    throw new Error('Tiempo de espera agotado (>3 min)');
-  };
-
   const generar = async () => {
     if (!garmFile || !modelFile) return;
     setGenerando(true);
@@ -93,39 +78,19 @@ export default function GeneradorIA() {
         fileToBase64(modelFile),
       ]);
 
-      setEstado('Enviando a la IA...');
-      const res = await fetch('https://api.replicate.com/v1/models/yisol/idm-vton/predictions', {
-        method: 'POST',
-        headers: {
-          Authorization: `Token ${API_KEY}`,
-          'Content-Type': 'application/json',
+      setEstado('Generando imagen (puede tardar ~1 min)...');
+      const { data, error } = await supabase.functions.invoke('generar-imagen', {
+        body: {
+          garm_img: garmB64,
+          human_img: modelB64,
+          garment_des: descripcion || 'clothing item',
         },
-        body: JSON.stringify({
-          input: {
-            human_img: modelB64,
-            garm_img: garmB64,
-            garment_des: descripcion || 'clothing item',
-            is_checked: true,
-            is_checked_crop: false,
-            denoise_steps: 30,
-            seed: Math.floor(Math.random() * 9999),
-          },
-        }),
       });
 
-      if (!res.ok) {
-        const err = await res.json().catch(() => ({})) as { detail?: string };
-        throw new Error(err.detail ?? `Error ${res.status}`);
-      }
+      if (error) throw new Error(error.message);
+      if (data?.error) throw new Error(data.error);
 
-      const prediction = await res.json();
-      setEstado('Generando imagen (puede tardar ~1 min)...');
-
-      const output = prediction.status === 'succeeded'
-        ? prediction.output as string
-        : await poll(prediction.id as string);
-
-      setResultado(output);
+      setResultado(data.output as string);
     } catch (e: unknown) {
       setError(e instanceof Error ? e.message : 'Error desconocido');
     } finally {
