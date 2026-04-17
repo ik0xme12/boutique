@@ -17,4 +17,10 @@
   .scrollbar-hide::-webkit-scrollbar { display: none; }
   .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
   .font-serif { font-family: 'Playfair Display', Georgia, serif; }
+  .animate-fade { animation: fadeIn 0.3s ease; }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
 }

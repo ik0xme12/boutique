@@ -18,12 +18,23 @@ export default function ProductModal({ producto, onCerrar }: ProductModalProps) 
   }, [producto]);
 
   useEffect(() => {
-    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') onCerrar(); };
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onCerrar();
+      if (!producto) return;
+      const total = (producto.imagenes ?? []).length;
+      if (e.key === 'ArrowRight') setImgActiva(i => (i + 1) % total);
+      if (e.key === 'ArrowLeft') setImgActiva(i => (i - 1 + total) % total);
+    };
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
-  }, [onCerrar]);
+  }, [onCerrar, producto]);
 
   if (!producto) return null;
+
+  const imagenes = producto.imagenes ?? [];
+  const total = imagenes.length;
+  const prev = () => setImgActiva(i => (i - 1 + total) % total);
+  const next = () => setImgActiva(i => (i + 1) % total);
 
   return (
     <div className="fixed inset-0 z-50 flex items-end md:items-center justify-center" onClick={onCerrar}>
@@ -42,24 +53,54 @@ export default function ProductModal({ producto, onCerrar }: ProductModalProps) 
           </svg>
         </button>
 
-        {/* Imágenes */}
+        {/* Carrusel de imágenes */}
         <div className="md:w-1/2 flex flex-col">
           <div className="relative aspect-[3/4] bg-[#E8D5C0] overflow-hidden">
-            <img src={(producto.imagenes ?? [])[imgActiva] ?? ''} alt={producto.nombre} className="w-full h-full object-cover transition-opacity duration-300" />
+            <img
+              key={imgActiva}
+              src={imagenes[imgActiva] ?? ''}
+              alt={producto.nombre}
+              className="w-full h-full object-cover animate-fade"
+            />
             {producto.nuevo && (
               <span className="absolute top-4 left-4 bg-[#7D9B7E] text-white text-[10px] tracking-widest uppercase px-2 py-1">Nuevo</span>
             )}
-          </div>
-          {(producto.imagenes ?? []).length > 1 && (
-            <div className="flex gap-2 p-4">
-              {(producto.imagenes ?? []).map((img, i) => (
-                <button key={i} onClick={() => setImgActiva(i)}
-                  className={`w-16 h-20 overflow-hidden border-2 transition-all ${imgActiva === i ? 'border-[#7D9B7E]' : 'border-transparent opacity-50 hover:opacity-75'}`}>
-                  <img src={img} alt="" className="w-full h-full object-cover" />
+
+            {/* Flechas */}
+            {total > 1 && (
+              <>
+                <button
+                  onClick={prev}
+                  className="absolute left-3 top-1/2 -translate-y-1/2 w-8 h-8 flex items-center justify-center bg-white/80 hover:bg-white transition-colors rounded-full shadow"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 text-stone-700" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+                  </svg>
                 </button>
-              ))}
-            </div>
-          )}
+                <button
+                  onClick={next}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 w-8 h-8 flex items-center justify-center bg-white/80 hover:bg-white transition-colors rounded-full shadow"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 text-stone-700" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                  </svg>
+                </button>
+              </>
+            )}
+
+            {/* Puntos indicadores */}
+            {total > 1 && (
+              <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1.5">
+                {imagenes.map((_, i) => (
+                  <button
+                    key={i}
+                    onClick={() => setImgActiva(i)}
+                    className={`w-1.5 h-1.5 rounded-full transition-all ${imgActiva === i ? 'bg-white scale-125' : 'bg-white/50'}`}
+                  />
+                ))}
+              </div>
+            )}
+          </div>
         </div>
 
         {/* Info */}
