@@ -1,11 +1,23 @@
 import { useState, useRef } from 'react';
 
-function fileToBase64(file: File): Promise<string> {
-  return new Promise((res, rej) => {
-    const r = new FileReader();
-    r.onload = () => res(r.result as string);
-    r.onerror = rej;
-    r.readAsDataURL(file);
+function compressImage(file: File, maxW = 768, maxH = 1024, quality = 0.8): Promise<string> {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    const url = URL.createObjectURL(file);
+    img.onload = () => {
+      URL.revokeObjectURL(url);
+      let { width, height } = img;
+      const ratio = Math.min(maxW / width, maxH / height, 1);
+      width = Math.round(width * ratio);
+      height = Math.round(height * ratio);
+      const canvas = document.createElement('canvas');
+      canvas.width = width;
+      canvas.height = height;
+      canvas.getContext('2d')!.drawImage(img, 0, 0, width, height);
+      resolve(canvas.toDataURL('image/jpeg', quality));
+    };
+    img.onerror = reject;
+    img.src = url;
   });
 }
 
@@ -71,10 +83,10 @@ export default function GeneradorIA() {
     setResultado(null);
 
     try {
-      setEstado('Preparando imágenes...');
+      setEstado('Comprimiendo imágenes...');
       const [garmB64, modelB64] = await Promise.all([
-        fileToBase64(garmFile),
-        fileToBase64(modelFile),
+        compressImage(garmFile),
+        compressImage(modelFile),
       ]);
 
       setEstado('Enviando a la IA...');
