@@ -72,7 +72,7 @@ export default function GeneradorIA() {
     setPreview: (s: string) => void,
   ) => {
     setFile(file);
-    const b64 = await fileToBase64(file);
+    const b64 = await compressImage(file);
     setPreview(b64);
   };
 
