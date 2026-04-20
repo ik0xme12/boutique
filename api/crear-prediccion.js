@@ -9,13 +9,13 @@ export default async function handler(req, res) {
   if (!apiKey) return res.status(500).json({ error: 'REPLICATE_API_KEY no configurado' });
 
   try {
-    // Parsear body manualmente para Vercel non-Next.js
+    // Parsear body manualmente
     const body = await new Promise((resolve, reject) => {
       let data = '';
       req.on('data', chunk => { data += chunk; });
       req.on('end', () => {
         try { resolve(JSON.parse(data)); }
-        catch (e) { reject(new Error('Body inválido: ' + e.message)); }
+        catch (e) { reject(new Error('Body inválido')); }
       });
       req.on('error', reject);
     });
@@ -23,13 +23,25 @@ export default async function handler(req, res) {
     const { garm_img, human_img, garment_des } = body;
     if (!garm_img || !human_img) return res.status(400).json({ error: 'Faltan imágenes' });
 
-    const response = await fetch('https://api.replicate.com/v1/models/yisol/idm-vton/predictions', {
+    // Obtener la versión más reciente del modelo
+    const verRes = await fetch('https://api.replicate.com/v1/models/yisol/idm-vton/versions', {
+      headers: { Authorization: `Token ${apiKey}` },
+    });
+    const verData = await verRes.json();
+    if (!verRes.ok || !verData.results?.length) {
+      return res.status(500).json({ error: 'No se pudo obtener versión del modelo: ' + (verData.detail || '') });
+    }
+    const version = verData.results[0].id;
+
+    // Crear predicción con la versión obtenida
+    const response = await fetch('https://api.replicate.com/v1/predictions', {
       method: 'POST',
       headers: {
         Authorization: `Token ${apiKey}`,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
+        version,
         input: {
           human_img,
           garm_img,
