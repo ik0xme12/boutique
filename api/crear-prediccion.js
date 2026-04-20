@@ -23,17 +23,9 @@ export default async function handler(req, res) {
     const { garm_img, human_img, garment_des } = body;
     if (!garm_img || !human_img) return res.status(400).json({ error: 'Faltan imágenes' });
 
-    // Obtener la versión más reciente del modelo
-    const verRes = await fetch('https://api.replicate.com/v1/models/yisol/idm-vton/versions', {
-      headers: { Authorization: `Token ${apiKey}` },
-    });
-    const verData = await verRes.json();
-    if (!verRes.ok || !verData.results?.length) {
-      return res.status(500).json({ error: 'No se pudo obtener versión del modelo: ' + (verData.detail || '') });
-    }
-    const version = verData.results[0].id;
+    // Versión estable conocida de IDM-VTON (yisol/idm-vton)
+    const VERSION = 'c871bb9b046607b680449ecbae55fd8c6d945e0a1948644bf2361b3d021d3ff4';
 
-    // Crear predicción con la versión obtenida
     const response = await fetch('https://api.replicate.com/v1/predictions', {
       method: 'POST',
       headers: {
@@ -41,7 +33,7 @@ export default async function handler(req, res) {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        version,
+        version: VERSION,
         input: {
           human_img,
           garm_img,
@@ -55,7 +47,11 @@ export default async function handler(req, res) {
     });
 
     const data = await response.json();
-    if (!response.ok) return res.status(response.status).json({ error: data.detail || 'Error Replicate' });
+    if (!response.ok) {
+      return res.status(response.status).json({
+        error: data.detail || data.error || JSON.stringify(data)
+      });
+    }
     return res.status(200).json({ id: data.id, status: data.status });
   } catch (e) {
     return res.status(500).json({ error: e.message });
